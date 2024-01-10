@@ -1,75 +1,149 @@
-## Developing a Nest.js project with authentication and authorization using JWT
+# Nest TypeScript Starter Project
 
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+This repository serves as a starting point for NestJS projects using TypeScript. Below are instructions for setting up the project, running Docker with a PostgreSQL database, and using seed commands to populate the database. Additionally, we provide examples of API requests for easy testing of implemented functionalities.
+
+<br><p>
+## Environment Setup
+
+Make sure you have Docker installed on your system before getting started.
+
+### Clone the repository to your local machine:
+Make sure you have <a href="https://www.docker.com/get-started/" target="_blank">Docker</a> installed on your system before getting started.
+
+#### 1. Clone the repository to your local machine
+```bash
+  git clone git@github.com:felipeflfranca/authentication-and-authorization-using-JWT-Nest.js.git
+```
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+
+<br><p>
+## Running Docker with PostgreSQL
+
+To simplify database management, we use Docker with a PostgreSQL instance. Follow the steps below:
+
+#### 1. Run the following command to start the Docker container:
+```bash
+  docker-compose up -d
+```
+
+This will start a local PostgreSQL server accessible on the default port `5432`.
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<br><p>
+## Creating and Running Seeds
 
-## Installation
+We use seed commands to populate the database. To create a new seed, run the following command:
 
 ```bash
-$ npm install
+  npm run prisma:create-seed SeedName
 ```
 
-## Running the app
+For example:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  npm run prisma:create-seed CreateUserSeed
 ```
 
-## Test
+This will create a file named `seed_timestamp_SeedName.ts` in the `seeds` directory.
+
+To execute all available seeds, use the following command:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  npm run prisma:seed
 ```
+The provided examples generate a simple seed, but you can customize the seed logic as needed.
+</p>
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<br><p>
+## Examples of API Requests
 
-## Stay in touch
+The application provides endpoints for authentication, user creation with roles, update, delete, and listing. Below are some examples of API requests:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Authentication
+#### POST Request for Login:
 
-## License
+```bash
+  POST /auth/login
+Content-Type: application/json
 
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+{
+  "username": "example_user",
+  "password": "password123"
+}
+```
+</p>
+
+
+<br><p>
+
+### Users
+#### POST Request to Create User:
+
+```bash
+POST /user
+Content-Type: application/json
+Authorization: Bearer [TOKEN]
+
+{
+  "name": "User teste",
+  "email": "admin@test.com.br"
+  "password": "test"
+  "roles": ["admin"]
+}
+```
+</p>
+
+<p>
+
+#### PUT Request to Update User:
+
+```bash
+PUT /user/{id}
+Content-Type: application/json
+Authorization: Bearer [TOKEN]
+
+{
+  "name": "User teste",
+  "email": "admin@test.com.br"
+  "password": "test2"
+  "roles": ["admin"]
+}
+
+```
+</p>
+
+<p>
+
+#### DELETE Request to Delete User:
+
+
+```bash
+DELETE /user/{id}
+Authorization: Bearer [TOKEN]
+```
+</p>
+
+<p>
+
+#### GET Request to Get All Users:
+
+```bash
+GET /user/all
+Authorization: Bearer [TOKEN]
+```
+</p>
+
+<p>
+
+#### GET Request to Get User by ID:
+
+```bash
+GET /user/{id}
+Authorization: Bearer [TOKEN]
+```
+</p>
+
+I hope these instructions help with setting up and testing your project. If you encounter issues or have suggestions, please feel free to open an issue or contribute to development. Happy coding!
