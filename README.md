@@ -145,5 +145,5 @@ GET /user/{id}
 Authorization: Bearer [TOKEN]
 ```
 </p>
-
+<br><br>
 I hope these instructions help with setting up and testing your project. If you encounter issues or have suggestions, please feel free to open an issue or contribute to development. Happy coding!
