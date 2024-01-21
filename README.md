@@ -75,7 +75,7 @@ Content-Type: application/json
 }
 ```
 
-#### POST Request for Refres token:
+#### POST Request for Refresh token:
 
 ```bash
 POST /refresh
