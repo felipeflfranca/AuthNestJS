@@ -18,16 +18,16 @@ Make sure you have <a href="https://www.docker.com/get-started/" target="_blank"
 
 
 <br><p>
-## Running Docker with PostgreSQL
+## Running
 
-To simplify database management, we use Docker with a PostgreSQL instance. Follow the steps below:
-
-#### 1. Run the following command to start the Docker container:
+#### 1. Run the following command:
 ```bash
   docker-compose up -d
 ```
 
-This will start a local PostgreSQL server accessible on the default port `5432`.
+Now you have the development environment running with all routes responding
+
+We implemented refresh token for jwt renewal and a black list with a trigger that deletes tokens that have already expired
 </p>
 
 
