@@ -10,6 +10,8 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthRequest } from './models/AuthRequest';
 import { IsPublic } from './decorators/is-public.decorator';
+import { RefreshJwtAuthGuard } from './guards/refresh-jwt-auth.guard';
+import { AuthJwtRefreshRequest } from './models/AuthJwtRefreshRequest';
 
 @Controller()
 export class AuthController {
@@ -20,6 +22,14 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Request() req: AuthRequest) {
-    return this.authService.login(req.user);
+    return await this.authService.login(req.user);
+  }
+
+  @IsPublic()
+  @Post('refresh')
+  @UseGuards(RefreshJwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async refreshToken(@Request() req: AuthJwtRefreshRequest) {
+    return await this.authService.refreshToken(req);
   }
 }

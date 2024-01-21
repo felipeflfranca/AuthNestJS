@@ -5,19 +5,20 @@ import { UserFromJwt } from '../models/UserFromJwt';
 import { UserPayload } from '../models/UserPayload';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class RefreshJwtStrategy extends PassportStrategy(
+  Strategy,
+  'jwt-refresh',
+) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromBodyField('refresh'),
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
     });
   }
 
   async validate(payload: UserPayload): Promise<UserFromJwt> {
-    if (payload.refresh) {
-      return null;
-    }
+    if (!payload.refresh) return null;
 
     return {
       id: payload.sub,

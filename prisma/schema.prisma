@@ -33,6 +33,13 @@ model Role {
   @@map("roles")
 }
 
+model BlackList {
+  token     String @id @unique
+  expiresIn DateTime @map("expires_in")
+  
+  @@map(name: "black_list")
+}
+
 model PrismaSeeds {
   name     String  @id @unique
   executed Boolean @default(false)

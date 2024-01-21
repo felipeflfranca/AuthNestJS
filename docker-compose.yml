@@ -1,26 +1,38 @@
-version: '3'
+version: "3"
 services:
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: app_user
-      POSTGRES_PASSWORD: app_pass
-      POSTGRES_DB: app-server
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  app:
+  auth_app_service:
+    container_name: auth_app-service
     build:
       context: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+      - auth_app-logs:/usr/src/app/logs
+    env_file:
+      - ./.env
+    depends_on:
+      - auth_app_database
+    ports:
+      - "3000:3000"
+    networks:
+      - database
 
+  auth_app_database:
+    container_name: auth_app_database
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
+      POSTGRES_DB: auth_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - auth_app-service-db:/var/lib/postgresql/data
+    networks:
+      - database
 volumes:
-  postgres_data:
+  auth_app-service-db: {}
+  auth_app-logs: {}
+
+networks:
+  database: 
