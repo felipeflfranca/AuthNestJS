@@ -66,12 +66,23 @@ The application provides endpoints for authentication, user creation with roles,
 #### POST Request for Login:
 
 ```bash
-  POST /auth/login
+POST /login
 Content-Type: application/json
 
 {
   "username": "example_user",
   "password": "password123"
+}
+```
+
+#### POST Request for Refres token:
+
+```bash
+POST /refresh
+Content-Type: application/json
+
+{
+    "refresh": "[REFRESH TOKEN]"
 }
 ```
 </p>
