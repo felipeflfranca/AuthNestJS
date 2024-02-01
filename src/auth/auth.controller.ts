@@ -1,5 +1,7 @@
 import {
   Controller,
+  Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Post,
@@ -23,6 +25,12 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(@Request() req: AuthRequest) {
     return await this.authService.login(req.user);
+  }
+
+  @Get('logout')
+  async logout(@Headers('Authorization') authorizationHeader: string) {
+    const token = authorizationHeader.replace('Bearer ', '');
+    return await this.authService.logout(token);
   }
 
   @IsPublic()

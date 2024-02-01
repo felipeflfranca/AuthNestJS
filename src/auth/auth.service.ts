@@ -42,6 +42,14 @@ export class AuthService {
     };
   }
 
+  async logout(token: string): Promise<any> {
+    await this.addToBlackListToken(token);
+
+    return {
+      message: `logout completed successfully.`,
+    };
+  }
+
   async refreshToken(req: AuthJwtRefreshRequest): Promise<any> {
     const { user, body } = req;
 
