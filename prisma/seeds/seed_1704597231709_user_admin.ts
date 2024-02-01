@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { Role } from '../../src/auth/enum/role.enum';
+import { Role } from 'src/auth/enum/role.enum';
 
 async function seed_1704597231709_user_admin(prisma: PrismaClient) {
   try {

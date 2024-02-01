@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
@@ -88,7 +88,7 @@ export class UserService {
     const existingUser = await this.findOne(id);
 
     if (!existingUser) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
 
     const data: Prisma.UserUpdateInput = {
@@ -142,7 +142,7 @@ export class UserService {
     const existingUser = await this.findOne(id);
 
     if (!existingUser) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
 
     await this.prisma.role.deleteMany({
@@ -154,7 +154,7 @@ export class UserService {
     });
 
     return {
-      userId: id,
+      id,
       message: `The user was successfully removed.`,
     };
   }
