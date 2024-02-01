@@ -70,8 +70,8 @@ POST /login
 Content-Type: application/json
 
 {
-  "username": "example_user",
-  "password": "password123"
+  "email": "admin@gmail.com",
+  "password": "teste"
 }
 ```
 
@@ -84,6 +84,14 @@ Content-Type: application/json
 {
     "refresh": "[REFRESH TOKEN]"
 }
+```
+
+#### GET Request for Logout:
+
+```bash
+GET /logout
+Content-Type: application/json
+Authorization: Bearer [TOKEN]
 ```
 </p>
 
